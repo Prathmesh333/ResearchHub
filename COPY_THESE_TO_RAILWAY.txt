@@ -1,0 +1,67 @@
+═══════════════════════════════════════════════════════════════
+  COPY THESE VARIABLES TO RAILWAY DASHBOARD
+═══════════════════════════════════════════════════════════════
+
+Go to: Railway Dashboard → Your App Service → Variables Tab
+
+Then add these THREE variables:
+
+───────────────────────────────────────────────────────────────
+Variable 1: DATABASE_URL
+───────────────────────────────────────────────────────────────
+
+Name:
+DATABASE_URL
+
+Value (OPTION A - Recommended):
+${{Postgres.DATABASE_URL}}
+
+Value (OPTION B - If option A doesn't work):
+postgresql://postgres:eZjzmwwolpVnpuyzDRTpVAlpvUAhqIaH@postgres.railway.internal:5432/railway
+
+───────────────────────────────────────────────────────────────
+Variable 2: JWT_SECRET
+───────────────────────────────────────────────────────────────
+
+Name:
+JWT_SECRET
+
+Value (USE THIS - freshly generated secure secret):
+acc346cb410c46096ab71a684493df465b66a50affb4029189a15c4fc0c72674
+
+───────────────────────────────────────────────────────────────
+Variable 3: PORT (Optional - Railway sets this automatically)
+───────────────────────────────────────────────────────────────
+
+Name:
+PORT
+
+Value:
+5000
+
+═══════════════════════════════════════════════════════════════
+  AFTER ADDING VARIABLES
+═══════════════════════════════════════════════════════════════
+
+1. Save the variables (they auto-save in Railway)
+2. Go to "Deployments" tab
+3. Click "Redeploy" on the latest deployment
+4. Watch the logs for:
+   ✓ DATABASE_URL is configured
+   ✓ Migrations completed successfully
+   ✓ Server listening on port 5000
+
+5. Test: https://your-app.railway.app/api/health
+   Expected: {"status":"ok"}
+
+═══════════════════════════════════════════════════════════════
+  IMPORTANT NOTES
+═══════════════════════════════════════════════════════════════
+
+• Add variables to YOUR APP SERVICE (GitHub), not the database service
+• Use Option A for DATABASE_URL (the ${{...}} reference) - it's more flexible
+• If your database service is NOT named "Postgres", replace it with the actual name
+• The JWT_SECRET above is freshly generated and secure - use it!
+• Don't commit these values to Git - they should only be in Railway dashboard
+
+═══════════════════════════════════════════════════════════════
