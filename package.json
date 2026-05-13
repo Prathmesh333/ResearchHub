@@ -8,7 +8,7 @@
     "dev:server": "tsx watch src/server/index.ts",
     "dev:client": "vite --host 0.0.0.0",
     "build": "prisma generate && vite build && tsc -p tsconfig.server.json",
-    "start": "prisma migrate deploy && node dist/server/index.js",
+    "start": "node dist/server/migrate.js && node dist/server/index.js",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
