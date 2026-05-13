@@ -1,16 +1,130 @@
-# Research Project Manager
+# ResearchHub
 
-A simple full-stack research project management app with Admin and Member roles.
+ResearchHub is a full-stack research project management application designed for research teams, academic groups, and project coordinators. It helps admins organize research projects, assign team members, create tasks, monitor deadlines, and track progress from one dashboard.
 
-## Features
+The system supports two main roles: Admin and Member. Admins manage projects, users, and tasks, while members can view their assigned work and update task progress.
 
-- JWT authentication with signup, login, and profile lookup
-- Admin project creation, deletion, and team member assignment
-- Admin task creation, assignment, priority, due date, and deletion
-- Member task visibility and assigned task status updates
-- Dashboard statistics for projects, tasks, status counts, progress, and overdue work
-- PostgreSQL schema with Prisma relationships and validation through Zod
-- React frontend built with Vite and served by the Express API in production
+## Project Purpose
+
+ResearchHub is created to reduce the confusion that happens when research work is managed through separate chats, spreadsheets, notes, or emails. It gives the team one place to manage research projects, assign responsibilities, check deadlines, and follow task completion.
+
+The project is useful for:
+
+- Research teams working on multiple studies or academic projects
+- Project coordinators who need to assign work and track progress
+- Students or members who need a clear view of their assigned tasks
+- Small teams that need a simple project dashboard without complex enterprise tools
+
+## Main Functionalities
+
+### 1. Authentication System
+
+- Users can create an account using name, email, password, and role.
+- Users can log in using email and password.
+- Passwords are hashed using bcrypt before being stored in the database.
+- JWT tokens are used to keep users authenticated.
+- The application can fetch the logged-in user's profile using the saved token.
+- Protected API routes require a valid authorization token.
+
+### 2. Role-Based Access
+
+- The application supports two roles: Admin and Member.
+- Admin users can manage projects, members, and tasks.
+- Member users can view only the work assigned to them.
+- Admin-only routes are protected on the backend.
+- Members cannot access admin management actions.
+
+### 3. Dashboard
+
+- Shows total number of projects.
+- Shows total number of tasks.
+- Shows completed task count.
+- Shows overdue task count.
+- Shows task status counts: To Do, In Progress, and Completed.
+- Shows overall project progress based on completed tasks.
+- Dashboard data changes based on the logged-in user's role.
+
+### 4. Project Management
+
+- Admins can create new research projects.
+- Each project can have a name and description.
+- Admins can delete projects.
+- Admins can assign members to projects.
+- Projects store creator information.
+- Projects are connected with members and tasks in the database.
+- Members can see projects they are assigned to.
+- Admins can view all projects.
+
+### 5. Team Member Management
+
+- Admins can view available users.
+- Admins can add members to selected projects.
+- Project members are stored using a project-member relationship table.
+- The same member is not duplicated inside the same project.
+- Member information is shown with project details.
+
+### 6. Task Management
+
+- Admins can create tasks for projects.
+- Tasks can include title, description, project, assigned member, due date, and priority.
+- Task priority options are Low, Medium, and High.
+- Task status options are To Do, In Progress, and Completed.
+- Admins can delete tasks.
+- Admins can assign tasks to project members.
+- The backend checks that the assigned user belongs to the selected project.
+- Members can update the status of tasks assigned to them.
+- Members cannot update tasks assigned to other users.
+
+### 7. Member Workflow
+
+- Members log in to their own account.
+- Members see only their assigned tasks.
+- Members can check task title, project name, priority, due date, and status.
+- Members can change task status as work progresses.
+- This keeps the member view focused and simple.
+
+### 8. Admin Workflow
+
+- Admin logs in to the dashboard.
+- Admin creates projects.
+- Admin assigns members to projects.
+- Admin creates tasks under projects.
+- Admin assigns tasks to members.
+- Admin monitors progress using dashboard statistics.
+- Admin removes projects or tasks when they are no longer needed.
+
+### 9. REST API
+
+- The backend exposes REST API endpoints for authentication, users, projects, tasks, and dashboard statistics.
+- API request bodies are validated using Zod.
+- Authentication middleware protects private routes.
+- Admin middleware protects admin-only actions.
+- API responses return clear success or error messages.
+
+### 10. Database
+
+- PostgreSQL is used as the database.
+- Prisma is used as the ORM.
+- The database includes models for User, Project, ProjectMember, and Task.
+- The database uses relationships between users, projects, project members, and assigned tasks.
+- Deleting a project also removes its related project memberships and tasks.
+- If an assigned user is removed, the task assignment can be set to null.
+
+### 11. Frontend
+
+- React is used for the user interface.
+- Vite is used for fast frontend development and production builds.
+- The frontend includes login and signup screens.
+- The dashboard includes project cards, task lists, status labels, and admin tools.
+- The interface changes depending on whether the logged-in user is an Admin or Member.
+
+### 12. Deployment Support
+
+- The project is prepared for deployment on Railway.
+- The Express backend serves the production React build.
+- The app can run as a single Railway web service.
+- Railway PostgreSQL can be used as the production database.
+- Environment variables are used for database connection, JWT secret, and server port.
 
 ## Tech Stack
 
